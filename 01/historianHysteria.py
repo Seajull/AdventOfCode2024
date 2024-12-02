@@ -2,10 +2,17 @@ import sys, re, os
 
 def partOne(inpu) :
     with open(inpu,'r') as inp :
+        l1=[]
+        l2=[]
         count=0
         for i in inp :
-            res=re.findall("\d",i)
-            count+=int(res[0]+res[-1])
+            isp=i[:-1].split(" ")
+            l1.append(isp[0])
+            l2.append(isp[-1])
+        l1.sort()
+        l2.sort()
+        for i,j in zip(l1,l2) :
+            count+=abs(int(j)-int(i))
     return count
 
 print()
@@ -14,23 +21,20 @@ print(partOne(sys.argv[1]))
 print()
 
 def partTwo(inpu) :
-    alpha=["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
-    count=0
     with open(inpu,'r') as inp :
+        l1=[]
+        l2=[]
+        count=0
         for i in inp :
-            res=re.findall("(?=(one|two|three|four|five|six|seven|eight|nine|\d))",i)
-            if res[0] in alpha :
-                first=str(alpha.index(res[0])+1)
-            else :
-                first=res[0]
-            if res[-1] in alpha :
-                sec=str(alpha.index(res[-1])+1)
-            else :
-                sec=res[-1]
-            count+=int(first+sec)
+            isp=i[:-1].split(" ")
+            l1.append(isp[0])
+            l2.append(isp[-1])
+        for i in l1 :
+            count+=int(i)*l2.count(i)
     return count
 
 print("==> PART TWO <==")
 print(partTwo(sys.argv[1]))
+print()
 
 
